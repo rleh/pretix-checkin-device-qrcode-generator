@@ -11,27 +11,23 @@
 \usepackage[T1]{fontenc}
 
 \begin{document}
-\thispagestyle{empty}
-%\layout
 
+
+{% for entry in data.entries %}
+
+\thispagestyle{empty}
 \begin{tikzpicture}[remember picture,overlay]
    \node[anchor=north east,inner sep=5pt] at (current page.north east)
-              {\includegraphics[scale=0.6]{rwth_asta_cmyk.eps}};
+   {\includegraphics[scale=0.6]{rwth_asta_cmyk.eps} };
 \end{tikzpicture}
-
-%\includegraphics[width=0.4\linewidth]{rwth_asta_cmyk.eps}
-
 \begin{center}
-
-{\huge{\textbf{Ticket Checkin SAP25}}}\\
+{\huge{\textbf{Ticket Check-In ({{ data.event }}) } } }\\
 \vspace{3mm}
 1. Du benötigst dein (geladenes) Smartphone und die App \textit{PretixSCAN}.\\
 \vspace{3mm}
 Lade die App für Android oder iOS herunter:\\
 \vspace{3mm}
-
 \begin{tabular}{lr}
-
 \qrcode[height=0.4\linewidth]{https://play.google.com/store/apps/details?id=eu.pretix.pretixscan.droid}
 &
 \hspace{0.1\linewidth}
@@ -40,29 +36,25 @@ Lade die App für Android oder iOS herunter:\\
 \tiny{https://play.google.com/store/apps/details?id=eu.pretix.pretixscan.droid}
 &
 \tiny{https://apps.apple.com/de/app/pretixscan/id1465873864}
-
-\end{tabular}
-
+\end{tabular}\\
 \vspace{5mm}
-
 2. Öffne die App und setze sie ggf. auf den Werkszustand zurück.\\
 \vspace{3mm}
 3. Scanne den folgenden Konfigurations-Code:\\
-
-%\vspace{25mm}
-
-%Scanne dann diesen QR-Code um dein Gerät zu aktivieren:\\
 \vspace{8mm}
-\qrcode[height=70mm]{http://www.ctan.org}\\
-\vspace{3mm}
-System-Adresse: \texttt{https://booking.asta.rwth-aachen.de}\\
-Token: \texttt{14gr64rc6hh9tzdb}
+\qrcode[height=90mm]{ {{ entry.qrdata }} }\\
+%\vspace{3mm}
+%{\footnotesize
+%Wenn die App oder das Gerät das Scannen von QR-Codes nicht unterstützt, können Sie auch die folgenden Daten manuell eingeben:\\
+%System-Adresse: \texttt{ {{ data.url }} }\\
+%Token: \texttt{ {{ entry.token }} }\\
+%}
+\vspace{10mm}
+ID: {{ entry.name }}
 \end{center}
-
-
 \newpage
-\thispagestyle{empty}
 
-Seite B
+{% endfor %}
+
 
 \end{document}

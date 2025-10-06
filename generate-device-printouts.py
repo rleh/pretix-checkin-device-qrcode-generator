@@ -2,6 +2,9 @@
 
 import argparse
 import requests
+import os
+
+from jinja2 import Environment, FileSystemLoader
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-t", "--token", required=True)
@@ -20,9 +23,12 @@ request_headers = {
     "Content-Type": "application/json",
 }
 
+
+entries = list()
+
 for i in range(args.number):
 
-    name = f"{args.prefix}-{i:02}"
+    name = f"{args.prefix}-{i:03}"
     request_body = {
         "name": name,
         "all_events": False,
@@ -40,6 +46,23 @@ for i in range(args.number):
     qr_data = {
         "handshake_version": 1,
         "url": "https://booking.asta.rwth-aachen.de",
-        "token": f"{r.json()["initialization_token"]}",
+        "token": r.json()["initialization_token"],
     }
-    print(str(qr_data))
+    l = {
+        "qrdata": str(qr_data).replace("{", "\\{").replace("}", "\\}"),
+        "token": r.json()["initialization_token"],
+        "name": name,
+    }
+    entries.append(l)
+
+printout_data = dict()
+
+printout_data["url"] = baseurl
+printout_data["event"] = args.event
+printout_data["entries"] = entries
+
+dir = os.path.dirname(os.path.realpath(__file__))
+tex = Environment(loader=FileSystemLoader(dir)).get_template("printout-template.tex").render(data=printout_data)
+with open(str(dir) + "/generated.tex","w+") as f:
+    f.write(tex)
+
