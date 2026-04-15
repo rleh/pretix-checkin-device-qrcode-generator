@@ -1,4 +1,6 @@
 token.txt
+generated.tex
+
 *.pdf
 *.aux
 *.log
