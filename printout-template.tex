@@ -42,14 +42,15 @@ Lade die App für Android oder iOS herunter:\\
 \vspace{3mm}
 3. Scanne den folgenden Konfigurations-Code:\\
 \vspace{8mm}
-\qrcode[height=90mm]{ {{ entry.qrdata }} }\\
-%\vspace{3mm}
+{{ entry.qrdata }}\\
+\vspace{1mm}
 %{\footnotesize
-%Wenn die App oder das Gerät das Scannen von QR-Codes nicht unterstützt, können Sie auch die folgenden Daten manuell eingeben:\\
-%System-Adresse: \texttt{ {{ data.url }} }\\
-%Token: \texttt{ {{ entry.token }} }\\
-%}
-\vspace{10mm}
+{\tiny{
+Wenn die App oder das Gerät das Scannen von QR-Codes nicht unterstützt, können Sie auch die folgenden Daten manuell eingeben:\\
+System-Adresse: \texttt{ {{ data.url }} }\\
+Token: \texttt{ {{ entry.token }} }\\
+}}
+\vspace{5mm}
 ID: {{ entry.name }}
 \end{center}
 \newpage

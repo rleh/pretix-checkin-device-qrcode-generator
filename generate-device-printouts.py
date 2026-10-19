@@ -49,11 +49,11 @@ for i in range(args.number):
 
     qr_data = {
         "handshake_version": 1,
-        "url": baseurl,
+        "url": baseurl.rstrip("/"),
         "token": r.json()["initialization_token"],
     }
     l = {
-        "qrdata": str(qr_data).replace("{", "\\{").replace("}", "\\}"),
+        "qrdata": "\\qrcode[height=90mm]{" + str(qr_data).replace("{", "\\{").replace("}", "\\}") + "}",
         "token": r.json()["initialization_token"],
         "name": name,
     }
